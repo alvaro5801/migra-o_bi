@@ -1,0 +1,22 @@
+query_id,tabela,operacao,risk_level,risk_score,risk_factors,mitigation,evidence_pointer,notas
+QRY-SQL-LEDGER-001,Sistema,READ,LOW,1,Leitura simples de configuração,Validar dados de sistema,bi14a.esf:L0977-L0990,Query segura
+QRY-SQL-LEDGER-002,PropostaSivpf,READ,LOW,1,Leitura simples com filtro,Validar número de proposta,bi14a.esf:L1010-L1022,Query segura com error handling
+QRY-SQL-LEDGER-003,PropostaSivpf,READ,LOW,1,Leitura simples,Validar número de proposta,bi14a.esf:L1055-L1060,Query segura
+QRY-SQL-LEDGER-004,PropostaSivpf,READ,LOW,1,Leitura de múltiplas colunas,Validar dados da proposta,bi14a.esf:L1088-L1093,Query segura
+QY-SQL-LEDGER-005,Bilhete,UPDATE,MEDIUM,5,"Operação de escrita, Atualização de dados bancários, Múltiplas colunas","Validar dados bancários, Implementar transação, Auditoria obrigatória",bi14a.esf:L1160-L1175,⚠️ CRÍTICO - Dados financeiros sensíveis
+QRY-SQL-LEDGER-006,Bilhete,READ,LOW,2,Leitura completa de bilhete (9 colunas),Validar existência do bilhete,bi14a.esf:L1194-L1210,Query complexa mas segura
+QRY-SQL-LEDGER-007,Apolice,READ,LOW,1,Validação de apólice,Validar número de apólice,bi14a.esf:L1231-L1240,Query segura
+QRY-SQL-LEDGER-008,Apolice,READ,LOW,1,Verificação de situação,Validar situação da apólice,bi14a.esf:L1266-L1275,Query segura
+QRY-SQL-LEDGER-009,Relatorio,READ,LOW,1,Busca de relatório,Validar existência do relatório,bi14a.esf:L1299-L1310,Query segura
+QRY-SQL-LEDGER-010,Relatorio,CREATE,MEDIUM,6,"Operação de INSERT, Múltiplas colunas (22 campos), Validação de mês obrigatória","Validar mês (1-12), Implementar transação, Validar campos obrigatórios, Auditoria",bi14a.esf:L1333-L1355,⚠️ CRÍTICO - INSERT complexo com muitos campos
+QRY-SQL-LEDGER-011,Bilhete,READ,LOW,2,Leitura completa de bilhete,Validar existência do bilhete,bi14a.esf:L1763-L1770,Query segura
+QRY-SQL-LEDGER-012,MovimentoDebitoCef,READ,LOW,2,SELECT * (todas colunas),Evitar SELECT * em produção,bi14a.esf:L1806-L1812,⚠️ SELECT * - Especificar colunas
+QRY-SQL-LEDGER-013,MovimentoDebitoCef,READ,LOW,2,SELECT * (todas colunas),Evitar SELECT * em produção,bi14a.esf:L1823-L1830,⚠️ SELECT * - Especificar colunas
+QRY-SQL-LEDGER-014,Rcap,READ,LOW,2,SELECT * (todas colunas),Evitar SELECT * em produção,bi14a.esf:L1838-L1844,⚠️ SELECT * - Especificar colunas
+QRY-SQL-LEDGER-015,Sistema,READ,LOW,1,Leitura simples (DUPLICATA),Consolidar queries duplicadas,bi14a.esf:L2138-L2151,⚠️ DUPLICATA - Mesma lógica em L0977
+QRY-SQL-LEDGER-016,PropostaSivpf,READ,LOW,1,Leitura simples (DUPLICATA),Consolidar queries duplicadas,bi14a.esf:L2171-L2180,⚠️ DUPLICATA - Mesma lógica em L1010
+QRY-SQL-LEDGER-017,MovimentoDebitoCef,READ,LOW,2,SELECT * (todas colunas),Evitar SELECT * em produção,bi14a.esf:L1471-L1478,⚠️ SELECT * - Especificar colunas
+QRY-SQL-LEDGER-018,MovimentoDebitoCef,READ,LOW,2,SELECT * (todas colunas),Evitar SELECT * em produção,bi14a.esf:L1489-L1497,⚠️ SELECT * - Especificar colunas
+QRY-SQL-LEDGER-020,Rcap,READ,LOW,3,"Chamada de procedimento (BI14P030), Validação crítica de SITUACAO","Validar SITUACAO='1', Documentar lógica de validação",bi14a.esf:L1504-L1511,🔴 OMISSÃO CORRIGIDA - Validação financeira crítica
+
+

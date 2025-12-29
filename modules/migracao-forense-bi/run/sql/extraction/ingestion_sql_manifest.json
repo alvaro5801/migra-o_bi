@@ -1,0 +1,98 @@
+{
+  "metadata": {
+    "source_file": "bi14a.esf",
+    "ingestion_date": "2025-12-28T19:30:00.000000",
+    "ingestor_agent": "ingestor-a-sql",
+    "vamap_executed": true,
+    "vamap_log_path": "run/sql/extraction/vamap_sql.log",
+    "lined_file_path": "run/sql/extraction/bi14a.lined"
+  },
+  "file_info": {
+    "size_bytes": 241264,
+    "line_count": 6842,
+    "encoding": "UTF-8",
+    "has_bom": false,
+    "line_endings": "CRLF"
+  },
+  "lined_file_integrity": {
+    "lined_file_hash_sha256": "cdd903bcb579cb06d912ef83176cffd4e5322b1bd936f762b31934b8ea302a2e",
+    "hash_algorithm": "SHA-256",
+    "hash_date": "2025-12-28T19:30:00.000000",
+    "lined_file_size_bytes": 296008,
+    "immutability_guarantee": "Numeração de linhas nunca muda sem detecção",
+    "purpose": "Garantir rastreabilidade absoluta de evidence pointers",
+    "verification_command": "sha256sum run/sql/extraction/bi14a.lined"
+  },
+  "sql_analysis": {
+    "sql_blocks": 77,
+    "declare_cursor_count": 5,
+    "table_references": 6,
+    "sqlca_references": 9,
+    "sql_integrity_issues": []
+  },
+  "vamap_summary": {
+    "tables_found": 6,
+    "records_found": 4,
+    "sql_operations": 28,
+    "sqlca_valid": true,
+    "valid_symbols": [
+      "ZZ01T01",
+      "PROMBIW099",
+      "V0BILHETE",
+      "V0APOLICE",
+      "V0RELATORIOS",
+      "V0MOVDEBCC_CEF",
+      "V0RCAP",
+      "BI14W001",
+      "ZZ99W01",
+      "PROCPFW099",
+      "ZZ20W01"
+    ]
+  },
+  "validation_status": {
+    "encoding_valid": true,
+    "sql_integrity_valid": true,
+    "vamap_success": true,
+    "lined_file_generated": true,
+    "lined_file_hash_verified": true,
+    "ready_for_extraction": true
+  },
+  "critical_evidence_pointers": {
+    "description": "Evidence pointers críticos que devem permanecer imutáveis",
+    "examples": [
+      {
+        "query_id": "QRY-SQL-B-013",
+        "evidence_pointer": "bi14a.esf:L1504-L1511",
+        "description": "Query omitida pelo Extractor-A - encontrada pelo Extractor-B",
+        "lined_verification": "Linha L1504 no arquivo .lined sempre aponta para: '001504|    BI14P030();                  /* le v0rcap'",
+        "immutability_status": "PROTECTED"
+      },
+      {
+        "query_id": "QRY-SQL-A-001",
+        "evidence_pointer": "bi14a.esf:L0977-L0990",
+        "description": "Primeira query SQL do arquivo",
+        "lined_verification": "Linha L0977 no arquivo .lined sempre aponta para: '000977|:sql       clause    = SELECT      hostvar = '?'.'",
+        "immutability_status": "PROTECTED"
+      }
+    ]
+  },
+  "soberania_compliance": {
+    "lined_file_mandatory": true,
+    "hash_sha256_mandatory": true,
+    "extractor_consistency": "Extractor-A e Extractor-B devem ler APENAS o arquivo .lined",
+    "immutability_detection": "Qualquer alteração no .lined será detectada pelo hash SHA-256",
+    "rastreability_guarantee": "Evidence pointers (ex: L1504) apontam SEMPRE para o mesmo código",
+    "implementation_status": "FULLY_IMPLEMENTED",
+    "compliance_level": "100%"
+  },
+  "ingestion_summary": {
+    "total_steps_completed": 9,
+    "infrastructure_created": true,
+    "lined_file_generated": true,
+    "hash_calculated": true,
+    "vamap_executed": true,
+    "manifest_generated": true,
+    "validation_passed": true,
+    "ready_for_phase": "Extraction Phase - Extractor-A-SQL and Extractor-B-SQL"
+  }
+}

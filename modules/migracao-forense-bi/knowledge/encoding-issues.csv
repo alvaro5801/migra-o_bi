@@ -1,0 +1,18 @@
+issue_id,issue_type,issue_name,description,severity,detection_method,action,example
+ENC-001,ENCODING,Invalid UTF-8,Sequências UTF-8 inválidas,HIGH,UnicodeDecodeError,Tentar EBCDIC ou Latin-1,Byte 0xFF em UTF-8
+ENC-002,ENCODING,Mixed Encoding,Encoding misto no mesmo arquivo,HIGH,Detectar múltiplos encodings,Normalizar para UTF-8,Parte UTF-8 parte Latin-1
+ENC-003,ENCODING,BOM Present,Byte Order Mark presente,LOW,Verificar \ufeff no início,Remover BOM,UTF-8 com BOM
+ENC-004,ENCODING,EBCDIC Detected,Arquivo em EBCDIC (mainframe),MEDIUM,Detectar padrões EBCDIC,Converter para UTF-8,Arquivo mainframe
+ENC-005,ENCODING,Encoding Unknown,Encoding não detectado,HIGH,Falha em todos os encodings,Tentar múltiplos encodings,Arquivo corrompido
+ENC-006,CHARACTER,Control Chars,Caracteres de controle inválidos,MEDIUM,ord(c) < 32 e não \n\r\t,Remover ou substituir,Caracteres 0x01-0x1F
+ENC-007,CHARACTER,Null Bytes,Null bytes em arquivo texto,HIGH,Verificar \x00,Remover null bytes,Byte 0x00
+ENC-008,CHARACTER,Non-ASCII,Caracteres não-ASCII sem UTF-8,LOW,ord(c) > 127 em ASCII,Validar encoding,Acentos em ASCII
+ENC-009,CHARACTER,Corrupted Chars,Caracteres corrompidos (�),HIGH,Verificar U+FFFD,Investigar encoding original,Replacement character
+ENC-010,LINE_ENDING,Mixed Line Endings,Mix de CRLF LF CR,MEDIUM,Contar tipos de endings,Normalizar para LF,Windows + Unix mix
+ENC-011,LINE_ENDING,No Final Newline,Arquivo sem newline final,LOW,Verificar último byte,Adicionar newline,Arquivo sem \n final
+ENC-012,LINE_ENDING,CRLF Windows,Line endings Windows,INFO,Detectar \r\n,Normalizar para LF,Arquivo do Windows
+ENC-013,LINE_ENDING,CR Mac Classic,Line endings Mac clássico,INFO,Detectar \r sem \n,Normalizar para LF,Arquivo Mac OS 9
+
+
+
+

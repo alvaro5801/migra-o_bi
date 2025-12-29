@@ -1,0 +1,61 @@
+code: migracao-forense-bi
+name: "Migração Forense BI - Extração Zero-Trust de Visual Age"
+header: "Módulo de Migração Forense para Sistemas BI Legados"
+subheader: "Extração forense, análise e migração de sistemas Visual Age (.esf) com rastreabilidade completa"
+default_selected: false
+
+# Variáveis do Core Config inseridas:
+## user_name
+## communication_language
+## document_output_language
+## output_folder
+
+# Configurações específicas do módulo
+migracao_forense_output_folder:
+  prompt: "Onde devem ser salvos os artefatos de migração forense?"
+  default: "{output_folder}/migracao-forense"
+  result: "{project-root}/{value}"
+
+legado_source_folder:
+  prompt: "Onde estão localizados os arquivos legados Visual Age (.esf)?"
+  default: "_LEGADO"
+  result: "{project-root}/{value}"
+
+evidence_format:
+  prompt: "Formato de EvidencePointer para rastreabilidade"
+  default: "arquivo.esf:Lxxxx-Lyyyy"
+  result: "{value}"
+
+zero_trust_mode:
+  prompt: "Ativar modo Zero-Trust (nada é PROVEN sem evidência)?"
+  default: "true"
+  result: "{value}"
+
+vamap_executable:
+  prompt: "Caminho para o executável vamap.exe (Âncora da Verdade)"
+  default: "tools/vamap.exe"
+  result: "{project-root}/{value}"
+
+vamap_validation_enabled:
+  prompt: "Ativar validação cruzada com VAMAP (compilador oficial)?"
+  default: "true"
+  result: "{value}"
+
+# Artefatos Obrigatórios da Fase 1
+required_artifacts:
+  ingestion:
+    - "run/ingestion/ingestion_manifest.json"
+    - "run/ingestion/vamap_raw.log"
+    - "run/ingestion/taint_report_preliminar.md"
+  extraction:
+    - "run/extraction/claims_A.json"
+    - "run/extraction/claims_B.json"
+    - "run/extraction/extraction_log.txt"
+    - "run/extraction/validation_report.md"
+    - "run/extraction/gate_status.json"
+    - "run/extraction/taint_report.md"
+    - "run/extraction/dependency_graph.json"
+  reconciliation:
+    - "run/reconcile/diff_report.md"
+    - "run/reconcile/claim_ledger.csv"
+

@@ -1,0 +1,15 @@
+rule_id,metric_type,rule_name,formula,threshold_low,threshold_medium,threshold_high,weight,description
+CMP-001,CYCLOMATIC,Complexidade Ciclomática,decisões + 1,<= 10,11-20,> 20,0.30,Complexidade de McCabe baseada em decisões
+CMP-002,STRUCTURAL,Complexidade Estrutural,aninhamento + condições + loops,<= 5,6-15,> 15,0.30,Complexidade estrutural do código
+CMP-003,DEPENDENCY,Complexidade de Dependências,deps_diretas + (deps_indiretas * 0.5),<= 3,4-8,> 8,0.25,Acoplamento e dependências
+CMP-004,DATA,Complexidade de Dados,(queries * 2) + tabelas + joins,<= 2,3-5,> 5,0.15,Complexidade de acesso a dados
+CMP-005,NESTING,Profundidade de Aninhamento,níveis de IF/EVALUATE,<= 3,4-5,> 5,0.20,Profundidade de estruturas aninhadas
+CMP-006,CONDITIONS,Número de Condições,AND + OR,<= 3,4-6,> 6,0.15,Número de condições lógicas
+CMP-007,LOOPS,Complexidade de Loops,loops aninhados,<= 1,2,> 2,0.10,Loops aninhados
+CMP-008,CALLS,Complexidade de Chamadas,CALL + PERFORM,<= 2,3-5,> 5,0.15,Chamadas a programas/rotinas
+CMP-009,PARAMETERS,Complexidade de Parâmetros,número de parâmetros,<= 3,4-6,> 6,0.10,Número de parâmetros em CALL
+CMP-010,SQL,Complexidade SQL,JOINs + subqueries,<= 1,2-3,> 3,0.15,Complexidade de queries SQL
+
+
+
+

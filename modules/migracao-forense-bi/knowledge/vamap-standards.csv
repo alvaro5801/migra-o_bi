@@ -1,0 +1,25 @@
+category,pattern,description,example,severity,action
+HEADER,VAMAP - Visual Age Symbol Analyzer,Cabeçalho do log VAMAP,VAMAP - Visual Age Symbol Analyzer v2.1,INFO,Validar versão
+FILE_ANALYSIS,Analyzing:,Indica arquivo sendo analisado,Analyzing: bi14a.esf,INFO,Extrair nome do arquivo
+SECTION_SCREENS,SCREENS:,Início da seção de telas,SCREENS:,CRITICAL,Iniciar extração de screens
+SECTION_FIELDS,FIELDS:,Início da seção de campos,FIELDS:,CRITICAL,Iniciar extração de fields
+SECTION_QUERIES,QUERIES:,Início da seção de queries SQL,QUERIES:,CRITICAL,Iniciar extração de queries
+SECTION_PROCEDURES,PROCEDURES:,Início da seção de procedures/rotinas,PROCEDURES:,CRITICAL,Iniciar extração de procedures
+SYMBOL_FORMAT,\w+ \(Line \d+-\d+\),Formato padrão de símbolo,TELA_CONSULTA (Line 5-26),CRITICAL,Extrair nome e range de linhas
+EMPTY_SECTION,Seção sem símbolos,Seção vazia indica ausência de componentes daquele tipo,,WARNING,Registrar ausência
+ERROR_SYNTAX,Syntax Error:,Erro de sintaxe detectado pelo VAMAP,Syntax Error: Line 45 - Missing END-SCREEN,CRITICAL,Registrar erro de sintaxe
+ERROR_REFERENCE,Reference Error:,Referência inválida detectada,Reference Error: FIELD_XXX not defined,HIGH,Registrar referência quebrada
+WARNING_DEPRECATED,Deprecated:,Uso de construção obsoleta,Deprecated: GOTO statement at Line 123,MEDIUM,Registrar uso de deprecated
+COMPLEXITY_HIGH,Complexity:,Indicador de complexidade,Complexity: HIGH (cyclomatic: 25),HIGH,Registrar métrica de complexidade
+DEPENDENCY_EXTERNAL,External Call:,Chamada a programa externo,External Call: PROG_EXT (Line 50),HIGH,Registrar dependência externa
+SYMBOL_DUPLICATE,Duplicate Symbol:,Símbolo duplicado detectado,Duplicate Symbol: FIELD_NOME at Line 30 and Line 80,CRITICAL,Registrar duplicação
+TABLE_REFERENCE,Table:,Referência a tabela de banco,Table: BANCOS (Line 38-43),HIGH,Registrar acesso a tabela
+SQL_STATEMENT,SQL:,Statement SQL detectado,SQL: SELECT * FROM BANCOS WHERE...,HIGH,Validar sintaxe SQL
+VARIABLE_GLOBAL,Global Variable:,Variável global detectada,Global Variable: WS-CONTADOR (used in 5 locations),MEDIUM,Registrar variável global
+SCREEN_FIELD_LINK,Screen-Field Link:,Ligação entre tela e campo,Screen-Field Link: TELA_CONSULTA -> COD_BANCO,INFO,Mapear relacionamento
+TOTAL_SYMBOLS,Total Symbols:,Total de símbolos encontrados,Total Symbols: 93,INFO,Validar contagem total
+ANALYSIS_TIME,Analysis Time:,Tempo de análise,Analysis Time: 2.3 seconds,INFO,Registrar performance
+ANALYSIS_COMPLETE,Analysis Complete,Indica fim da análise,Analysis Complete,INFO,Finalizar processamento
+
+
+

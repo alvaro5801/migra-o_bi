@@ -1,0 +1,19 @@
+rule_id,item_type,rule_name,match_criteria,discrepancy_threshold,confidence_level,action
+REC-001,screen,Screen Name Match,screen_name igual,0%,HIGH,Accept if all criteria match
+REC-002,screen,Screen Evidence Match,evidence_pointer igual OU overlap >= 80%,20%,HIGH,Accept if overlap sufficient
+REC-003,screen,Screen Fields Count,fields_count igual OU diff <= 10%,10%,MEDIUM,Review if difference > 10%
+REC-004,field,Field Name Match,field_name igual,0%,HIGH,Accept if all criteria match
+REC-005,field,Field Screen Match,screen_id correspondente,0%,HIGH,Required for match
+REC-006,field,Field Type Match,field_type igual,0%,HIGH,Discrepancy if different
+REC-007,field,Field Evidence Match,evidence_pointer igual OU overlap >= 80%,20%,MEDIUM,Review if different
+REC-008,query,Query SQL Match,sql_statement normalizado igual,0%,HIGH,Normalize before compare
+REC-009,query,Query Type Match,query_type igual,0%,HIGH,Discrepancy if different
+REC-010,query,Query Tables Match,tables_referenced igual (ordem não importa),0%,HIGH,Set comparison
+REC-011,logic,Logic Description Similar,description similarity >= 80%,20%,MEDIUM,Use text similarity
+REC-012,logic,Logic Type Match,logic_type igual,0%,HIGH,Discrepancy if different
+REC-013,logic,Logic Evidence Match,evidence_pointer igual OU overlap >= 80%,20%,MEDIUM,Review if different
+REC-014,all,Evidence Pointer Format,Formato arquivo.esf:Lxxxx-Lyyyy,0%,CRITICAL,Reject if invalid
+REC-015,all,Line Range Valid,line_start <= line_end <= total_lines,0%,CRITICAL,Reject if invalid
+
+
+

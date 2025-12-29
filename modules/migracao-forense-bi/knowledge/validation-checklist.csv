@@ -1,0 +1,65 @@
+check_id,category,check_name,check_description,severity,auto_check,manual_review,pass_criteria
+CHK-001,BLOQUEIO,Arquivo claims_A.json existe,Verificar existência do arquivo principal de claims,BLOCKING,YES,NO,Arquivo existe e é legível
+CHK-002,BLOQUEIO,Arquivo extraction_log.txt existe,Verificar existência do log de extração,BLOCKING,YES,NO,Arquivo existe e é legível
+CHK-003,JSON,JSON sintaticamente válido,Validar sintaxe JSON do claims_A.json,CRITICAL,YES,NO,JSON.parse() sem erro
+CHK-004,JSON,Estrutura JSON completa,Verificar presença de seções obrigatórias,CRITICAL,YES,NO,metadata + screens + fields + queries + business_logic presentes
+CHK-005,METADATA,Campo source_file presente,Verificar metadata.source_file,CRITICAL,YES,NO,Campo presente e não vazio
+CHK-006,METADATA,Campo extraction_timestamp presente,Verificar metadata.extraction_timestamp,CRITICAL,YES,NO,Campo presente e formato ISO 8601
+CHK-007,METADATA,Campo file_hash_sha256 presente,Verificar metadata.file_hash_sha256,CRITICAL,YES,NO,Campo presente e formato SHA-256 válido
+CHK-008,METADATA,Campo total_lines presente,Verificar metadata.total_lines,CRITICAL,YES,NO,Campo presente e > 0
+CHK-009,GROUNDING,Evidence pointer obrigatório - screens,Todo screen tem evidence_pointer,CRITICAL,YES,NO,100% screens com evidence_pointer
+CHK-010,GROUNDING,Evidence pointer obrigatório - fields,Todo field tem evidence_pointer,CRITICAL,YES,NO,100% fields com evidence_pointer
+CHK-011,GROUNDING,Evidence pointer obrigatório - queries,Todo query tem evidence_pointer,CRITICAL,YES,NO,100% queries com evidence_pointer
+CHK-012,GROUNDING,Evidence pointer obrigatório - logic,Todo business_logic tem evidence_pointer,CRITICAL,YES,NO,100% logic com evidence_pointer
+CHK-013,GROUNDING,Formato evidence pointer - screens,Validar formato arquivo.esf:Lxxxx-Lyyyy,CRITICAL,YES,NO,100% screens com formato correto
+CHK-014,GROUNDING,Formato evidence pointer - fields,Validar formato arquivo.esf:Lxxxx-Lyyyy,CRITICAL,YES,NO,100% fields com formato correto
+CHK-015,GROUNDING,Formato evidence pointer - queries,Validar formato arquivo.esf:Lxxxx-Lyyyy,CRITICAL,YES,NO,100% queries com formato correto
+CHK-016,GROUNDING,Formato evidence pointer - logic,Validar formato arquivo.esf:Lxxxx-Lyyyy,CRITICAL,YES,NO,100% logic com formato correto
+CHK-017,GROUNDING,Linhas existentes - screens,Linhas referenciadas <= total_lines,CRITICAL,YES,NO,100% screens com linhas válidas
+CHK-018,GROUNDING,Linhas existentes - fields,Linhas referenciadas <= total_lines,CRITICAL,YES,NO,100% fields com linhas válidas
+CHK-019,GROUNDING,Linhas existentes - queries,Linhas referenciadas <= total_lines,CRITICAL,YES,NO,100% queries com linhas válidas
+CHK-020,GROUNDING,Linhas existentes - logic,Linhas referenciadas <= total_lines,CRITICAL,YES,NO,100% logic com linhas válidas
+CHK-021,GROUNDING,GroundingScore calculado,Calcular (válidos / total) × 100,CRITICAL,YES,NO,Score = 100.0%
+CHK-022,REFERENCES,Screen IDs únicos,Verificar duplicatas em screen_id,CRITICAL,YES,NO,Nenhum screen_id duplicado
+CHK-023,REFERENCES,Field IDs únicos,Verificar duplicatas em field_id,CRITICAL,YES,NO,Nenhum field_id duplicado
+CHK-024,REFERENCES,Query IDs únicos,Verificar duplicatas em query_id,CRITICAL,YES,NO,Nenhum query_id duplicado
+CHK-025,REFERENCES,Logic IDs únicos,Verificar duplicatas em logic_id,CRITICAL,YES,NO,Nenhum logic_id duplicado
+CHK-026,REFERENCES,Fields referenciam screens válidos,Todo field.screen_id existe em screens,CRITICAL,YES,NO,100% fields com screen_id válido
+CHK-027,REFERENCES,Logic dependencies válidas,Todas dependencies existem,CRITICAL,YES,NO,100% dependencies válidas
+CHK-028,COMPLETENESS,Campos obrigatórios - screens,screen_id e screen_name não vazios,CRITICAL,YES,NO,100% screens com campos preenchidos
+CHK-029,COMPLETENESS,Campos obrigatórios - fields,field_id e field_name não vazios,CRITICAL,YES,NO,100% fields com campos preenchidos
+CHK-030,COMPLETENESS,Campos obrigatórios - queries,query_id e sql_statement não vazios,CRITICAL,YES,NO,100% queries com campos preenchidos
+CHK-031,COMPLETENESS,Campos obrigatórios - logic,logic_id e description não vazios,CRITICAL,YES,NO,100% logic com campos preenchidos
+CHK-032,COVERAGE,Coverage mínimo,coverage_percentage >= 95%,HIGH,YES,NO,Coverage >= 95%
+CHK-033,COVERAGE,Evidence validity,evidence_pointers_valid = evidence_pointers_total,CRITICAL,YES,NO,100% evidence pointers válidos
+CHK-034,QUALITY,SQL statements completos,Queries com sql_statement não vazio,HIGH,YES,NO,>= 95% queries com SQL completo
+CHK-035,QUALITY,Telas extraídas,Todas telas do arquivo extraídas,HIGH,YES,YES,100% telas extraídas (requer revisão manual)
+CHK-036,QUALITY,Campos extraídos,Todos campos de cada tela extraídos,HIGH,YES,YES,100% campos extraídos (requer revisão manual)
+CHK-037,QUALITY,Queries extraídas,Todas queries SQL extraídas,HIGH,YES,YES,100% queries extraídas (requer revisão manual)
+CHK-038,QUALITY,Tables referenced,Queries com tables_referenced identificadas,HIGH,YES,NO,>= 95% queries com tables
+CHK-039,QUALITY,Line range consistente,line_range consistente com evidence_pointer,HIGH,YES,NO,100% consistente
+CHK-040,QUALITY,Summary correto,Valores em summary correspondem aos arrays,HIGH,YES,NO,100% valores corretos
+CHK-041,DESCRIPTION,Descriptions mínimas,Descriptions com >= 10 caracteres,MEDIUM,YES,NO,>= 80% com descriptions adequadas
+CHK-042,DESCRIPTION,Complexity scores,Complexity_score entre 1 e 10,MEDIUM,YES,NO,100% scores válidos
+CHK-043,DESCRIPTION,Pseudo code presente,Lógica complexa (score >= 7) tem pseudo_code,MEDIUM,YES,NO,>= 80% lógica complexa com pseudo_code
+CHK-044,VALIDATION,Validation rules listadas,Fields com validação têm rules listadas,MEDIUM,YES,NO,>= 80% fields com validation_rules
+CHK-045,VALIDATION,Parameters identificados,Queries com parâmetros identificados,MEDIUM,YES,NO,>= 80% queries com parameters
+CHK-046,CONSISTENCY,Fields count correto,screen.fields_count = count(fields com screen_id),MEDIUM,YES,NO,100% counts corretos
+CHK-047,CONSISTENCY,Total screens correto,summary.total_screens = len(screens),HIGH,YES,NO,100% correto
+CHK-048,CONSISTENCY,Total fields correto,summary.total_fields = len(fields),HIGH,YES,NO,100% correto
+CHK-049,CONSISTENCY,Total queries correto,summary.total_queries = len(queries),HIGH,YES,NO,100% correto
+CHK-050,CONSISTENCY,Total logic correto,summary.total_business_logic_blocks = len(logic),HIGH,YES,NO,100% correto
+CHK-051,PERFORMANCE,Extraction duration razoável,<= 5 min por 1000 linhas,LOW,YES,NO,Dentro do limite
+CHK-052,PERFORMANCE,JSON size razoável,<= 10MB sem compressão,LOW,YES,NO,Dentro do limite
+CHK-053,SECURITY,Hash SHA-256 válido,file_hash_sha256 é hash válido do arquivo,HIGH,YES,NO,Hash correto
+CHK-054,SECURITY,Timestamp ISO 8601,extraction_timestamp formato correto,MEDIUM,YES,NO,Formato ISO 8601
+CHK-055,GATE,Gate G1 - GroundingScore,GroundingScore = 100.0%,GATE,YES,NO,Score = 100.0%
+CHK-056,GATE,Gate G1 - Critical failures,Zero falhas CRITICAL,GATE,YES,NO,0 falhas
+CHK-057,GATE,Gate G1 - High failure rate,Taxa falha HIGH <= 5%,GATE,YES,NO,<= 5%
+CHK-058,GATE,Gate G1 - JSON válido,JSON sintaticamente válido,GATE,YES,NO,JSON válido
+CHK-059,GATE,Gate G1 - Arquivos presentes,Todos arquivos obrigatórios presentes,GATE,YES,NO,Todos presentes
+CHK-060,GATE,Gate G1 - Status final,Determinar PASS ou FAIL,GATE,YES,NO,Todas condições PASS
+
+
+
+

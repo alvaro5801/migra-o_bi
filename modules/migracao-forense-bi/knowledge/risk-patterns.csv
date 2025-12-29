@@ -1,0 +1,35 @@
+pattern_id,zone_type,pattern_name,pattern_description,detection_method,risk_level,risk_score,mitigation_strategy
+RISK-001,COMPLEX_LOGIC,EVALUATE Encadeados,EVALUATE dentro de EVALUATE (>= 3 níveis),Contar EVALUATE em description/pseudo_code,HIGH,25,Refatorar em funções menores com strategy pattern
+RISK-002,COMPLEX_LOGIC,IF Aninhados Profundos,IF dentro de IF (>= 4 níveis),Contar IF em description/pseudo_code,HIGH,25,Extrair condições em funções booleanas
+RISK-003,COMPLEX_LOGIC,PERFORM Recursivo,PERFORM dentro de PERFORM (>= 3 níveis),Analisar dependencies de ROUTINE,MEDIUM,20,Simplificar fluxo de chamadas
+RISK-004,COMPLEX_LOGIC,Múltiplas Condições,AND/OR (>= 5 condições),Contar AND/OR em description,MEDIUM,20,Extrair em variáveis booleanas nomeadas
+RISK-005,EXTERNAL_CALLS,CALL Sem Documentação,CALL com description < 20 chars,Verificar length de description,MEDIUM,30,Documentar interface e contrato
+RISK-006,EXTERNAL_CALLS,CALL com Múltiplos Parâmetros,CALL com >= 5 parâmetros,Contar dependencies,MEDIUM,20,Encapsular em objeto de transferência
+RISK-007,EXTERNAL_CALLS,CALL em Loop,CALL dentro de PERFORM UNTIL,Procurar 'loop' em description,HIGH,25,Otimizar com batch processing
+RISK-008,HIDDEN_DEPENDENCIES,Variável Compartilhada,Variável usada por >= 3 componentes,Analisar dependencies compartilhadas,HIGH,30,Encapsular em serviço/repository
+RISK-009,HIDDEN_DEPENDENCIES,Side Effect Não Documentado,Rotina modifica estado sem documentar,Procurar keywords de mutação,HIGH,25,Documentar side effects explicitamente
+RISK-010,HIDDEN_DEPENDENCIES,Estado Compartilhado,Múltiplas telas usam mesma variável,Analisar uso cross-screen,MEDIUM,20,Usar session/context object
+RISK-011,GLOBAL_VARIABLES,WORKING-STORAGE Global,Variável WS- usada >= 5 vezes,Contar uso de variáveis WS-,MEDIUM,15,Converter em parâmetro ou injetar
+RISK-012,GLOBAL_VARIABLES,Flag Global,Variável FLAG usada em múltiplos contextos,Analisar contextos de uso,MEDIUM,15,Usar retorno de função ao invés de flag
+RISK-013,GLOBAL_VARIABLES,Contador Global,Variável contador compartilhada,Identificar variáveis de contagem,LOW,10,Passar como parâmetro
+RISK-014,SQL_COMPLEXITY,SQL Dinâmico,SQL construído em runtime,Procurar concatenação de strings SQL,HIGH,30,Usar prepared statements ou ORM
+RISK-015,SQL_COMPLEXITY,Múltiplos JOINs,Query com >= 5 JOINs,Contar JOINs em sql_statement,MEDIUM,20,Considerar views ou desnormalização
+RISK-016,SQL_COMPLEXITY,Subquery Aninhada,SELECT dentro de SELECT,Procurar SELECT após FROM/WHERE,MEDIUM,20,Refatorar com CTEs ou temp tables
+RISK-017,SQL_COMPLEXITY,Query em Loop,Query executada em loop,Verificar query em PERFORM UNTIL,HIGH,30,Usar bulk operations ou JOIN
+RISK-018,ERROR_HANDLING,Sem ON ERROR,Bloco sem tratamento de erro,Verificar ausência de ON ERROR,HIGH,25,Adicionar tratamento de erro apropriado
+RISK-019,ERROR_HANDLING,SQLCODE Não Verificado,Query sem verificação de SQLCODE,Verificar queries sem IF SQLCODE,HIGH,25,Sempre verificar SQLCODE após SQL
+RISK-020,ERROR_HANDLING,Erro Silenciado,Erro capturado mas não tratado,Procurar ON ERROR vazio,MEDIUM,20,Logar erro ou propagar exceção
+RISK-021,DATA_INTEGRITY,Transaction Sem COMMIT,BEGIN sem COMMIT/ROLLBACK,Verificar transações incompletas,HIGH,30,Garantir COMMIT ou ROLLBACK
+RISK-022,DATA_INTEGRITY,UPDATE Sem WHERE,UPDATE sem cláusula WHERE,Verificar UPDATE sem WHERE,CRITICAL,40,Sempre usar WHERE em UPDATE/DELETE
+RISK-023,DATA_INTEGRITY,DELETE Sem Confirmação,DELETE sem validação,Verificar DELETE direto,HIGH,30,Adicionar confirmação ou soft delete
+RISK-024,PERFORMANCE,Cursor Não Fechado,DECLARE CURSOR sem CLOSE,Verificar cursores abertos,MEDIUM,15,Sempre fechar cursores
+RISK-025,PERFORMANCE,Loop Ineficiente,Loop com operações pesadas,Analisar complexity em loops,MEDIUM,15,Otimizar operações dentro do loop
+RISK-026,SECURITY,SQL Injection Potencial,Concatenação de input em SQL,Verificar concatenação em queries,CRITICAL,40,Usar parametrização
+RISK-027,SECURITY,Senha Hardcoded,Senha em código,Procurar 'PASSWORD' em código,CRITICAL,40,Usar configuração externa segura
+RISK-028,MAINTAINABILITY,Código Duplicado,Lógica similar em múltiplos lugares,Comparar descriptions similares,MEDIUM,15,Extrair em função reutilizável
+RISK-029,MAINTAINABILITY,Magic Numbers,Números sem contexto,Identificar literais numéricos,LOW,10,Usar constantes nomeadas
+RISK-030,MAINTAINABILITY,Nome Não Descritivo,Variável com nome genérico,Verificar nomes como TEMP WS-X,LOW,10,Usar nomes descritivos
+
+
+
+

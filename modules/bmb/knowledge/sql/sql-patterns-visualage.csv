@@ -1,0 +1,34 @@
+pattern_id,pattern_name,regex_pattern,description,capture_groups,example_match,priority
+SQL-001,EXEC_SQL_BLOCK,EXEC\s+SQL\s+(.*?)\s+END-EXEC,Bloco SQL embutido completo,1: SQL statement,EXEC SQL SELECT * FROM BANCOS END-EXEC,HIGH
+SQL-002,DECLARE_CURSOR,DECLARE\s+(\w+)\s+CURSOR\s+FOR\s+(.*?)(?=EXEC|DECLARE|$),Declaração de cursor,1: cursor_name 2: select_statement,DECLARE C1 CURSOR FOR SELECT * FROM BANCOS,HIGH
+SQL-003,OPEN_CURSOR,OPEN\s+(\w+),Abertura de cursor,1: cursor_name,OPEN C1,MEDIUM
+SQL-004,FETCH_CURSOR,FETCH\s+(\w+)\s+INTO\s+(.*?)(?=\n|$),Fetch de cursor,1: cursor_name 2: variables,FETCH C1 INTO :WS-COD :WS-NOME,MEDIUM
+SQL-005,CLOSE_CURSOR,CLOSE\s+(\w+),Fechamento de cursor,1: cursor_name,CLOSE C1,MEDIUM
+SQL-006,INSERT_STATEMENT,INSERT\s+INTO\s+(\w+)\s*\((.*?)\)\s*VALUES\s*\((.*?)\),Inserção de dados,1: table_name 2: columns 3: values,INSERT INTO BANCOS (COD NOME) VALUES (:V1 :V2),HIGH
+SQL-007,UPDATE_STATEMENT,UPDATE\s+(\w+)\s+SET\s+(.*?)(?=WHERE|$),Atualização de dados,1: table_name 2: set_clause,UPDATE BANCOS SET ATIVO='N' WHERE COD=:V1,HIGH
+SQL-008,DELETE_STATEMENT,DELETE\s+FROM\s+(\w+)(?:\s+WHERE\s+(.*?))?(?=\n|$),Deleção de dados,1: table_name 2: where_clause,DELETE FROM BANCOS WHERE COD=:V1,HIGH
+SQL-009,SELECT_INTO,SELECT\s+(.*?)\s+INTO\s+(.*?)\s+FROM\s+(\w+)(?:\s+WHERE\s+(.*?))?(?=\n|$),Select com INTO,1: columns 2: variables 3: table_name 4: where_clause,SELECT COD INTO :WS-COD FROM BANCOS WHERE ATIVO='S',HIGH
+SQL-010,SELECT_JOIN,SELECT\s+(.*?)\s+FROM\s+(\w+)\s+(?:INNER\s+)?JOIN\s+(\w+)\s+ON\s+(.*?)(?=WHERE|ORDER|GROUP|$),Select com JOIN,1: columns 2: table1 3: table2 4: join_condition,SELECT * FROM BANCOS B JOIN AGENCIAS A ON B.COD=A.COD_BANCO,MEDIUM
+SQL-011,SQLCA_INCLUDE,EXEC\s+SQL\s+INCLUDE\s+SQLCA\s+END-EXEC,Inclusão da área de comunicação SQL,None,EXEC SQL INCLUDE SQLCA END-EXEC,HIGH
+SQL-012,DECLARE_TABLE,EXEC\s+SQL\s+DECLARE\s+(\w+)\s+TABLE\s*\((.*?)\)\s+END-EXEC,Declaração de estrutura de tabela,1: table_name 2: columns_definition,EXEC SQL DECLARE BANCOS TABLE (COD CHAR(10) NOME VARCHAR(100)) END-EXEC,HIGH
+SQL-013,PREPARE_STATEMENT,PREPARE\s+(\w+)\s+FROM\s+(.*?)(?=\n|$),Preparação de SQL dinâmico,1: statement_name 2: sql_string,PREPARE S1 FROM :WS-SQL-STRING,HIGH
+SQL-014,EXECUTE_PREPARED,EXECUTE\s+(\w+)(?:\s+USING\s+(.*?))?(?=\n|$),Execução de SQL preparado,1: statement_name 2: parameters,EXECUTE S1 USING :WS-PARAM1 :WS-PARAM2,HIGH
+SQL-015,COMMIT_WORK,COMMIT\s+WORK,Confirmação de transação,None,COMMIT WORK,MEDIUM
+SQL-016,ROLLBACK_WORK,ROLLBACK\s+WORK,Desfazer transação,None,ROLLBACK WORK,MEDIUM
+SQL-017,SQLCODE_CHECK,(?:IF\s+)?SQLCODE\s*([=<>!]+)\s*(-?\d+),Verificação de código de retorno SQL,1: operator 2: code,IF SQLCODE = 100,MEDIUM
+SQL-018,WHENEVER_SQLERROR,WHENEVER\s+SQLERROR\s+(CONTINUE|GOTO\s+\w+|STOP),Handler global de erro SQL,1: action,WHENEVER SQLERROR CONTINUE,MEDIUM
+SQL-019,WHENEVER_NOT_FOUND,WHENEVER\s+NOT\s+FOUND\s+(CONTINUE|GOTO\s+\w+),Handler global de not found,1: action,WHENEVER NOT FOUND GOTO NO-DATA,MEDIUM
+SQL-020,FOR_UPDATE,SELECT\s+(.*?)\s+FROM\s+(\w+)(?:\s+WHERE\s+(.*?))?\s+FOR\s+UPDATE,Select com lock para update,1: columns 2: table_name 3: where_clause,SELECT * FROM BANCOS WHERE COD=:V1 FOR UPDATE,MEDIUM
+SQL-021,ORDER_BY,ORDER\s+BY\s+(.*?)(?=\n|$|FETCH|LIMIT),Cláusula de ordenação,1: order_columns,ORDER BY NOME ASC,LOW
+SQL-022,GROUP_BY,GROUP\s+BY\s+(.*?)(?=HAVING|ORDER|$),Cláusula de agrupamento,1: group_columns,GROUP BY TIPO,LOW
+SQL-023,HAVING_CLAUSE,HAVING\s+(.*?)(?=ORDER|$),Filtro pós-agrupamento,1: condition,HAVING COUNT(*) > 10,LOW
+SQL-024,UNION_QUERY,UNION(?:\s+ALL)?,União de queries,None,UNION ALL,LOW
+SQL-025,SUBQUERY,\(\s*SELECT\s+(.*?)\s+FROM\s+(\w+)(?:\s+WHERE\s+(.*?))?\s*\),Subquery,1: columns 2: table_name 3: where_clause,(SELECT COD FROM BANCOS WHERE ATIVO='S'),MEDIUM
+SQL-026,CALL_PROCEDURE,CALL\s+(\w+)\s*\((.*?)\),Chamada de stored procedure,1: procedure_name 2: parameters,CALL VALIDA_BANCO(:WS-COD :WS-RETORNO),HIGH
+SQL-027,LOCK_TABLE,LOCK\s+TABLE\s+(\w+)\s+IN\s+(\w+)\s+MODE,Lock explícito de tabela,1: table_name 2: lock_mode,LOCK TABLE BANCOS IN EXCLUSIVE MODE,HIGH
+SQL-028,CREATE_INDEX,CREATE\s+(?:UNIQUE\s+)?INDEX\s+(\w+)\s+ON\s+(\w+)\s*\((.*?)\),Criação de índice,1: index_name 2: table_name 3: columns,CREATE INDEX IDX_BANCOS_COD ON BANCOS(COD),LOW
+SQL-029,DROP_TABLE,DROP\s+TABLE\s+(\w+),Remoção de tabela,1: table_name,DROP TABLE BANCOS_TEMP,HIGH
+SQL-030,ALTER_TABLE,ALTER\s+TABLE\s+(\w+)\s+(ADD|DROP|MODIFY)\s+(.*?)(?=\n|$),Alteração de estrutura de tabela,1: table_name 2: action 3: definition,ALTER TABLE BANCOS ADD COLUMN EMAIL VARCHAR(100),MEDIUM
+
+
+

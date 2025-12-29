@@ -1,0 +1,19 @@
+rule_id,validation_type,rule_name,check_description,severity,pass_criteria,fail_action,example
+VAL-001,EXISTENCE,File Exists,Arquivo existe no sistema,CRITICAL,Arquivo encontrado,Abortar processamento,Arquivo não encontrado
+VAL-002,PERMISSION,File Readable,Arquivo tem permissão de leitura,CRITICAL,os.access(R_OK) = True,Abortar processamento,Permissão negada
+VAL-003,SIZE,File Not Empty,Arquivo não está vazio,CRITICAL,size > 0,Abortar processamento,Arquivo 0 bytes
+VAL-004,SIZE,File Size Reasonable,Tamanho razoável (< 100MB),MEDIUM,size <= 100MB,Avisar e continuar,Arquivo 500MB
+VAL-005,SIZE,File Size Minimum,Tamanho mínimo (>= 1KB),LOW,size >= 1KB,Avisar e continuar,Arquivo 10 bytes
+VAL-006,ENCODING,Encoding Detected,Encoding detectado com sucesso,CRITICAL,encoding != None,Tentar múltiplos encodings,Encoding desconhecido
+VAL-007,ENCODING,Encoding Valid,Encoding é válido e suportado,HIGH,encoding in supported_list,Tentar converter,Encoding exótico
+VAL-008,CONTENT,Is Text File,Arquivo é texto não binário,CRITICAL,is_binary() = False,Abortar processamento,Arquivo .exe
+VAL-009,CONTENT,Has Content,Arquivo tem conteúdo legível,HIGH,len(content) > 0,Abortar processamento,Arquivo só com nulls
+VAL-010,CONTENT,Line Count Reasonable,Número de linhas razoável,LOW,10 <= lines <= 1000000,Avisar e continuar,Arquivo 5 linhas
+VAL-011,FORMAT,Line Endings Detected,Line endings detectados,MEDIUM,endings != None,Assumir LF,Sem line endings
+VAL-012,FORMAT,Extension Valid,Extensão de arquivo válida,LOW,ext in allowed_list,Avisar e continuar,Arquivo .xyz
+VAL-013,INTEGRITY,No Corruption,Arquivo não corrompido,HIGH,read sem erro,Tentar recuperar,Erro de leitura
+VAL-014,INTEGRITY,Hash Calculable,Hash SHA-256 calculável,HIGH,hash != None,Abortar processamento,Erro ao calcular hash
+
+
+
+

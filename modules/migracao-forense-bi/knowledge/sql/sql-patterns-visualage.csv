@@ -1,0 +1,34 @@
+pattern_id,pattern_type,pattern_syntax,description,operation_type,affected_tables_extraction,example,risk_level,notes
+SQL-001,EXEC_SQL_BLOCK,EXEC SQL ... END-EXEC,Bloco SQL embutido padrão,VARIES,Parse statement interno,EXEC SQL SELECT * FROM BANCOS END-EXEC,LOW,Padrão mais comum em Visual Age
+SQL-002,DECLARE_CURSOR,DECLARE cursor_name CURSOR FOR,Declaração de cursor para iteração,SELECT,Extrair FROM clause,DECLARE C1 CURSOR FOR SELECT COD FROM BANCOS,MEDIUM,Requer análise de FETCH e CLOSE
+SQL-003,OPEN_CURSOR,OPEN cursor_name,Abertura de cursor declarado,SELECT,Referenciar cursor declarado,OPEN C1,LOW,Sempre após DECLARE CURSOR
+SQL-004,FETCH_CURSOR,FETCH cursor_name INTO,Busca próxima linha do cursor,SELECT,Referenciar cursor declarado,FETCH C1 INTO :WS-COD :WS-NOME,LOW,Loop até SQLCODE <> 0
+SQL-005,CLOSE_CURSOR,CLOSE cursor_name,Fechamento de cursor,SELECT,Referenciar cursor declarado,CLOSE C1,LOW,Libera recursos do cursor
+SQL-006,INSERT_STATEMENT,INSERT INTO table_name,Inserção de dados,INSERT,Extrair INTO table_name,INSERT INTO BANCOS VALUES (:WS-COD :WS-NOME),MEDIUM,Verificar constraints e triggers
+SQL-007,UPDATE_STATEMENT,UPDATE table_name SET,Atualização de dados,UPDATE,Extrair UPDATE table_name,UPDATE BANCOS SET ATIVO='N' WHERE COD=:WS-COD,MEDIUM,Verificar WHERE clause (mass update risk)
+SQL-008,DELETE_STATEMENT,DELETE FROM table_name,Deleção de dados,DELETE,Extrair FROM table_name,DELETE FROM BANCOS WHERE COD=:WS-COD,HIGH,Verificar WHERE clause (mass delete risk)
+SQL-009,SELECT_INTO,SELECT ... INTO :host_vars,Select com atribuição direta,SELECT,Extrair FROM e tabelas de JOIN,SELECT COD INTO :WS-COD FROM BANCOS WHERE ATIVO='S',LOW,Espera exatamente 1 linha (SQLCODE 100 se 0)
+SQL-010,SELECT_JOIN,SELECT ... FROM t1 JOIN t2,Select com múltiplas tabelas,SELECT,Extrair todas tabelas do FROM e JOIN,SELECT * FROM BANCOS B JOIN AGENCIAS A ON B.COD=A.COD_BANCO,MEDIUM,Mapear relacionamentos entre tabelas
+SQL-011,DYNAMIC_SQL,PREPARE statement_name FROM,SQL construído em runtime,VARIES,Parse string dinâmica se possível,PREPARE S1 FROM :WS-SQL-STRING,HIGH,Difícil rastrear tabelas afetadas
+SQL-012,EXECUTE_PREPARED,EXECUTE statement_name,Execução de SQL preparado,VARIES,Referenciar PREPARE anterior,EXECUTE S1 USING :WS-PARAM1 :WS-PARAM2,HIGH,Vincular ao PREPARE correspondente
+SQL-013,COMMIT,COMMIT WORK,Confirmação de transação,COMMIT,N/A,COMMIT WORK,LOW,Marca fim de unidade lógica de trabalho
+SQL-014,ROLLBACK,ROLLBACK WORK,Desfazer transação,ROLLBACK,N/A,ROLLBACK WORK,MEDIUM,Verificar lógica de erro handling
+SQL-015,SQLCODE_CHECK,IF SQLCODE = value,Verificação de código de retorno SQL,CHECK,N/A,IF SQLCODE = 100 THEN MOVE 'NAO ENCONTRADO' TO MSG,LOW,Essencial para error handling
+SQL-016,SQLCA,EXEC SQL INCLUDE SQLCA,Inclusão da área de comunicação SQL,INCLUDE,N/A,EXEC SQL INCLUDE SQLCA END-EXEC,LOW,Estrutura padrão de diagnóstico SQL
+SQL-017,DECLARE_TABLE,DECLARE table_name TABLE,Declaração de estrutura de tabela,DDL,Extrair table_name e colunas,DECLARE BANCOS TABLE (COD CHAR(10) NOME VARCHAR(100)),LOW,Metadados para validação de tipos
+SQL-018,SELECT_SUBQUERY,SELECT ... WHERE col IN (SELECT ...),Select com subquery,SELECT,Extrair tabelas de query principal e subquery,SELECT * FROM BANCOS WHERE COD IN (SELECT COD_BANCO FROM AGENCIAS),MEDIUM,Analisar ambas queries separadamente
+SQL-019,UNION_QUERY,SELECT ... UNION SELECT ...,União de múltiplos selects,SELECT,Extrair tabelas de todas queries,SELECT COD FROM BANCOS UNION SELECT COD FROM BANCOS_INATIVOS,MEDIUM,Verificar compatibilidade de colunas
+SQL-020,CALL_STORED_PROC,CALL procedure_name,Chamada de stored procedure,CALL,Extrair procedure_name,CALL VALIDA_BANCO(:WS-COD :WS-RETORNO),HIGH,Procedure pode afetar múltiplas tabelas
+SQL-021,WHENEVER_SQLERROR,WHENEVER SQLERROR action,Handler global de erro SQL,ERROR_HANDLER,N/A,WHENEVER SQLERROR CONTINUE,MEDIUM,Afeta comportamento de todos SQLs subsequentes
+SQL-022,WHENEVER_NOT_FOUND,WHENEVER NOT FOUND action,Handler global de not found,ERROR_HANDLER,N/A,WHENEVER NOT FOUND GOTO NO-DATA,LOW,Tratamento de SQLCODE 100
+SQL-023,FOR_UPDATE,SELECT ... FOR UPDATE,Select com lock para update,SELECT,Extrair FROM clause,SELECT * FROM BANCOS WHERE COD=:WS-COD FOR UPDATE,MEDIUM,Indica intenção de UPDATE posterior
+SQL-024,ORDER_BY,SELECT ... ORDER BY columns,Select com ordenação,SELECT,Extrair FROM e colunas de ordenação,SELECT * FROM BANCOS ORDER BY NOME,LOW,Impacto em performance se sem índice
+SQL-025,GROUP_BY,SELECT ... GROUP BY columns,Select com agrupamento,SELECT,Extrair FROM e colunas de agrupamento,SELECT TIPO COUNT(*) FROM BANCOS GROUP BY TIPO,LOW,Verificar funções de agregação
+SQL-026,HAVING_CLAUSE,... GROUP BY ... HAVING condition,Filtro pós-agrupamento,SELECT,Extrair condições de HAVING,SELECT TIPO COUNT(*) FROM BANCOS GROUP BY TIPO HAVING COUNT(*) > 10,MEDIUM,Combinado com GROUP BY
+SQL-027,LOCK_TABLE,LOCK TABLE table_name,Lock explícito de tabela,LOCK,Extrair table_name,LOCK TABLE BANCOS IN EXCLUSIVE MODE,HIGH,Pode causar deadlocks
+SQL-028,CREATE_INDEX,CREATE INDEX index_name ON table,Criação de índice,DDL,Extrair table_name e colunas,CREATE INDEX IDX_BANCOS_COD ON BANCOS(COD),LOW,Geralmente em scripts separados
+SQL-029,DROP_TABLE,DROP TABLE table_name,Remoção de tabela,DDL,Extrair table_name,DROP TABLE BANCOS_TEMP,HIGH,Operação destrutiva
+SQL-030,ALTER_TABLE,ALTER TABLE table_name,Alteração de estrutura de tabela,DDL,Extrair table_name,ALTER TABLE BANCOS ADD COLUMN EMAIL VARCHAR(100),MEDIUM,Pode impactar código existente
+
+
+

@@ -1,0 +1,14 @@
+strategy_id,conflict_type,strategy_name,description,rule,priority,example
+STR-001,DIFFERENT_EVIDENCE,Prefer Narrower Range,Preferir evidence pointer mais específico,Usar range menor (mais preciso),1,A:L100-L200 vs B:L100-L150 → usar B
+STR-002,DIFFERENT_COUNT,Prefer Higher Count,Preferir contagem maior (mais completo),Usar extração com mais itens,2,A:10 fields vs B:12 fields → usar B
+STR-003,DIFFERENT_TYPE,Human Review Required,Tipos diferentes requerem revisão,Marcar requires_review = true,3,field_type: INPUT vs OUTPUT → revisar
+STR-004,DIFFERENT_LOGIC,Prefer More Detailed,Preferir descrição mais detalhada,Usar description com mais caracteres,2,A:20 chars vs B:50 chars → usar B
+STR-005,MISSING_ITEM,Include Unique Item,Incluir item único no ledger,Adicionar com source = A_ONLY ou B_ONLY,1,Item só em A → incluir com LOW confidence
+STR-006,DIFFERENT_DEPENDENCIES,Union of Dependencies,União de dependências,Fazer união de dependencies de A e B,2,A:[X Y] + B:[Y Z] → [X Y Z]
+STR-007,DIFFERENT_SQL,Normalize and Compare,Normalizar SQL antes de comparar,Remover espaços extras case-insensitive,1,SELECT * FROM vs select * from → MATCH
+STR-008,DIFFERENT_TABLES,Set Comparison,Comparar tabelas como conjunto,Ordem não importa,1,[BANCOS CLIENTES] = [CLIENTES BANCOS]
+STR-009,OVERLAP_PARTIAL,Accept if >= 80%,Aceitar se overlap >= 80%,Calcular overlap de line ranges,2,L100-L200 vs L100-L180 → 80% overlap
+STR-010,NO_MATCH,Mark for Review,Sem correspondência clara,Marcar requires_review = true,3,Nenhuma regra aplicável → revisar
+
+
+

@@ -1,0 +1,445 @@
+{
+  "metadata": {
+    "source_file": "bi14a.esf",
+    "extraction_date": "2025-12-28T12:45:00Z",
+    "extractor_agent": "extractor-a-sql",
+    "extraction_mode": "FORENSIC",
+    "total_queries": 18,
+    "total_tables": 6,
+    "total_cursors": 0,
+    "sql_format": "Visual Age Embedded SQL"
+  },
+  "queries": [
+    {
+      "query_id": "QRY-SQL-A-001",
+      "query_type": "STATIC",
+      "operation_type": "READ",
+      "sql_statement": "SELECT DTMOVABE INTO ?DTMOVABE WHERE idsistem = 'RN'",
+      "affected_tables": ["V1SISTEMA"],
+      "columns": ["DTMOVABE", "idsistem"],
+      "evidence_pointer": "bi14a.esf:L0977-L0990",
+      "line_start": 977,
+      "line_end": 990,
+      "risk_level": "LOW",
+      "notes": "Query simples; Leitura de data do sistema",
+      "context": "Após validação EZESQCOD EQ 0"
+    },
+    {
+      "query_id": "QRY-SQL-A-002",
+      "query_type": "STATIC",
+      "operation_type": "READ",
+      "sql_statement": "SELECT NUM_SICOB, NUM_PROPOSTA_SIVPF INTO ?NUM_SICOB, ?NUM_PROPOSTA_SIVPF WHERE NUM_PROPOSTA_SIVPF = ?NUM_PROPOSTA_SIVPF",
+      "affected_tables": ["V0PROPOSTA_SIVPF"],
+      "columns": ["NUM_SICOB", "NUM_PROPOSTA_SIVPF"],
+      "evidence_pointer": "bi14a.esf:L1010-L1022",
+      "line_start": 1010,
+      "line_end": 1022,
+      "risk_level": "LOW",
+      "notes": "Query simples; Busca proposta SIVPF",
+      "context": "Com error handling 'PROBLEMAS NO ACESSO AO BANCO DE DADOS'"
+    },
+    {
+      "query_id": "QRY-SQL-A-003",
+      "query_type": "STATIC",
+      "operation_type": "READ",
+      "sql_statement": "SELECT NUM_SICOB, NUM_PROPOSTA_SIVPF INTO ?NUM_SICOB, ?NUM_PROPOSTA_SIVPF",
+      "affected_tables": ["V0PROPOSTA_SIVPF"],
+      "columns": ["NUM_SICOB", "NUM_PROPOSTA_SIVPF"],
+      "evidence_pointer": "bi14a.esf:L1055-L1060",
+      "line_start": 1055,
+      "line_end": 1060,
+      "risk_level": "LOW",
+      "notes": "Query simples; Leitura de proposta",
+      "context": "Com error handling"
+    },
+    {
+      "query_id": "QRY-SQL-A-004",
+      "query_type": "STATIC",
+      "operation_type": "READ",
+      "sql_statement": "SELECT NUM_PROPOSTA_SIVPF, CANAL_PROPOSTA, ORIGEM_PROPOSTA INTO ?NUM_PROPOSTA_SIVPF, ?CANAL_PROPOSTA, ?ORIGEM_PROPOSTA",
+      "affected_tables": ["V0PROPOSTA_SIVPF"],
+      "columns": ["NUM_PROPOSTA_SIVPF", "CANAL_PROPOSTA", "ORIGEM_PROPOSTA"],
+      "evidence_pointer": "bi14a.esf:L1088-L1093",
+      "line_start": 1088,
+      "line_end": 1093,
+      "risk_level": "LOW",
+      "notes": "Query simples; Leitura de canal e origem",
+      "context": "Com error handling"
+    },
+    {
+      "query_id": "QRY-SQL-A-005",
+      "query_type": "STATIC",
+      "operation_type": "UPDATE",
+      "sql_statement": "UPDATE SEGUROS.V0BILHETE SET COD_AGENCIA_DEB = ?COD_AGENCIA_DEB, OPERACAO_CONTA_DEB = ?OPERACAO_CONTA_DEB, NUM_CONTA_DEB = ?NUM_CONTA_DEB, DIG_CONTA_DEB = ?DIG_CONTA_DEB WHERE NUMBIL = ?NUMBIL",
+      "affected_tables": ["V0BILHETE"],
+      "columns": ["COD_AGENCIA_DEB", "OPERACAO_CONTA_DEB", "NUM_CONTA_DEB", "DIG_CONTA_DEB", "NUMBIL"],
+      "evidence_pointer": "bi14a.esf:L1160-L1175",
+      "line_start": 1160,
+      "line_end": 1175,
+      "risk_level": "MEDIUM",
+      "notes": "UPDATE com WHERE; Atualização de dados bancários do bilhete",
+      "context": "Função BI16P012; Processo ZZ99W01; Com WHERE clause (seguro)",
+      "function": "BI16P012",
+      "error_handler": "ZZRCIN2"
+    },
+    {
+      "query_id": "QRY-SQL-A-006",
+      "query_type": "STATIC",
+      "operation_type": "READ",
+      "sql_statement": "SELECT NUMBIL, NUM_APOLICE, FONTE, RAMO, SITUACAO, COD_AGENCIA_DEB, OPERACAO_CONTA_DEB, NUM_CONTA_DEB, DIG_CONTA_DEB INTO ?NUMBIL, ?NUM_APOLICE, ?FONTE, ?RAMO, ?SITUACAO, ?COD_AGENCIA_DEB, ?OPERACAO_CONTA_DEB, ?NUM_CONTA_DEB, ?DIG_CONTA_DEB WHERE NUMBIL = ?NUMBIL",
+      "affected_tables": ["V0BILHETE"],
+      "columns": ["NUMBIL", "NUM_APOLICE", "FONTE", "RAMO", "SITUACAO", "COD_AGENCIA_DEB", "OPERACAO_CONTA_DEB", "NUM_CONTA_DEB", "DIG_CONTA_DEB"],
+      "evidence_pointer": "bi14a.esf:L1194-L1210",
+      "line_start": 1194,
+      "line_end": 1210,
+      "risk_level": "LOW",
+      "notes": "Query simples; Leitura completa de bilhete",
+      "context": "Função BI14P020; Com error handling"
+    },
+    {
+      "query_id": "QRY-SQL-A-007",
+      "query_type": "STATIC",
+      "operation_type": "READ",
+      "sql_statement": "SELECT NUM_APOLICE INTO ?NUM_APOLICE WHERE NUM_APOLICE = ?NUM_APOLICE",
+      "affected_tables": ["V0APOLICE"],
+      "columns": ["NUM_APOLICE"],
+      "evidence_pointer": "bi14a.esf:L1231-L1240",
+      "line_start": 1231,
+      "line_end": 1240,
+      "risk_level": "LOW",
+      "notes": "Query simples; Verificação de existência de apólice",
+      "context": "Com error handling"
+    },
+    {
+      "query_id": "QRY-SQL-A-008",
+      "query_type": "STATIC",
+      "operation_type": "READ",
+      "sql_statement": "SELECT SITUACAO INTO ?SITUACAO WHERE NUM_APOLICE = ?NUM_APOLICE",
+      "affected_tables": ["V0APOLICE"],
+      "columns": ["SITUACAO", "NUM_APOLICE"],
+      "evidence_pointer": "bi14a.esf:L1266-L1275",
+      "line_start": 1266,
+      "line_end": 1275,
+      "risk_level": "LOW",
+      "notes": "Query simples; Leitura de situação da apólice",
+      "context": "Com error handling"
+    },
+    {
+      "query_id": "QRY-SQL-A-009",
+      "query_type": "STATIC",
+      "operation_type": "READ",
+      "sql_statement": "SELECT DATA_SOLICITACAO, SITUACAO, CODRELAT INTO ?DATA_SOLICITACAO, ?SITUACAO, ?CODRELAT WHERE CODRELAT = ?CODRELAT",
+      "affected_tables": ["V0RELATORIOS"],
+      "columns": ["DATA_SOLICITACAO", "SITUACAO", "CODRELAT"],
+      "evidence_pointer": "bi14a.esf:L1299-L1310",
+      "line_start": 1299,
+      "line_end": 1310,
+      "risk_level": "LOW",
+      "notes": "Query simples; Leitura de relatório",
+      "context": "Com error handling"
+    },
+    {
+      "query_id": "QRY-SQL-A-010",
+      "query_type": "STATIC",
+      "operation_type": "CREATE",
+      "sql_statement": "INSERT INTO V0RELATORIOS (CODUSU, DATA_SOLICITACAO, IDSISTEM, CODRELAT, NRCOPIAS, QUANTIDADE, PERI_INICIAL, PERI_FINAL, DATA_REFERENCIA, MES_REFERENCIA, ANO_REFERENCIA, ORGAO, FONTE, CODPDT, RAMO, MODALIDA, CONGENER, NUM_APOLICE, NRENDOS, NUMBIL, CORRECAO, SITUACAO) VALUES (?CODUSU, ?DATA_SOLICITACAO, ?IDSISTEM, ?CODRELAT, ?NRCOPIAS, ?QUANTIDADE, ?PERI_INICIAL, ?PERI_FINAL, ?DATA_REFERENCIA, ?MES_REFERENCIA, ?ANO_REFERENCIA, ?ORGAO, ?FONTE, ?CODPDT, ?RAMO, ?MODALIDA, ?CONGENER, ?NUM_APOLICE, ?NRENDOS, ?NUMBIL, ?CORRECAO, ?SITUACAO)",
+      "affected_tables": ["V0RELATORIOS"],
+      "columns": ["CODUSU", "DATA_SOLICITACAO", "IDSISTEM", "CODRELAT", "NRCOPIAS", "QUANTIDADE", "PERI_INICIAL", "PERI_FINAL", "DATA_REFERENCIA", "MES_REFERENCIA", "ANO_REFERENCIA", "ORGAO", "FONTE", "CODPDT", "RAMO", "MODALIDA", "CONGENER", "NUM_APOLICE", "NRENDOS", "NUMBIL", "CORRECAO", "SITUACAO"],
+      "evidence_pointer": "bi14a.esf:L1333-L1355",
+      "line_start": 1333,
+      "line_end": 1355,
+      "risk_level": "MEDIUM",
+      "notes": "INSERT com múltiplas colunas; Inclusão de relatório",
+      "context": "Função BI14P050; 22 colunas inseridas",
+      "validation": "Verificar EZESQCOD NE 0 após inserção (linha 1589)"
+    },
+    {
+      "query_id": "QRY-SQL-A-011",
+      "query_type": "STATIC",
+      "operation_type": "READ",
+      "sql_statement": "SELECT NUMBIL, NUM_APOLICE, FONTE, RAMO, SITUACAO, COD_AGENCIA_DEB, OPERACAO_CONTA_DEB, NUM_CONTA_DEB, DIG_CONTA_DEB FROM V0BILHETE WHERE NUMBIL = ?NUMBIL",
+      "affected_tables": ["V0BILHETE"],
+      "columns": ["NUMBIL", "NUM_APOLICE", "FONTE", "RAMO", "SITUACAO", "COD_AGENCIA_DEB", "OPERACAO_CONTA_DEB", "NUM_CONTA_DEB", "DIG_CONTA_DEB"],
+      "evidence_pointer": "bi14a.esf:L1763-L1770",
+      "line_start": 1763,
+      "line_end": 1770,
+      "risk_level": "LOW",
+      "notes": "Query simples; Leitura de bilhete (duplicata da QRY-SQL-A-006)",
+      "context": "Validação EZESQCOD EQ 100 - 'BILHETE NAO ENCONTRADO'"
+    },
+    {
+      "query_id": "QRY-SQL-A-012",
+      "query_type": "STATIC",
+      "operation_type": "READ",
+      "sql_statement": "SELECT * FROM V0MOVDEBCC_CEF WHERE NUMBIL = ?NUMBIL AND COD_CONVENIO = 6114 AND SIT_COBRANCA = '2'",
+      "affected_tables": ["V0MOVDEBCC_CEF"],
+      "columns": ["NUMBIL", "COD_CONVENIO", "SIT_COBRANCA"],
+      "evidence_pointer": "bi14a.esf:L1806-L1812",
+      "line_start": 1806,
+      "line_end": 1812,
+      "risk_level": "LOW",
+      "notes": "Query simples; Verificação de renovação (SIT_COBRANCA = '2')",
+      "context": "Função BI14P025; Validação EZESQCOD EQ 100 - 'BILHETE NAO E RENOVACAO'"
+    },
+    {
+      "query_id": "QRY-SQL-A-013",
+      "query_type": "STATIC",
+      "operation_type": "READ",
+      "sql_statement": "SELECT * FROM V0MOVDEBCC_CEF WHERE NUMBIL = ?NUMBIL AND COD_CONVENIO = 6114 AND SIT_COBRANCA = '8'",
+      "affected_tables": ["V0MOVDEBCC_CEF"],
+      "columns": ["NUMBIL", "COD_CONVENIO", "SIT_COBRANCA"],
+      "evidence_pointer": "bi14a.esf:L1823-L1830",
+      "line_start": 1823,
+      "line_end": 1830,
+      "risk_level": "LOW",
+      "notes": "Query simples; Verificação de crédito efetivado (SIT_COBRANCA = '8')",
+      "context": "Validação EZESQCOD EQ 0 - 'BILHETE CANCELADO COM CREDITO EFETIVADO'"
+    },
+    {
+      "query_id": "QRY-SQL-A-014",
+      "query_type": "STATIC",
+      "operation_type": "READ",
+      "sql_statement": "SELECT * FROM V0RCAP WHERE NRTIT = ?NRTIT",
+      "affected_tables": ["V0RCAP"],
+      "columns": ["NRTIT"],
+      "evidence_pointer": "bi14a.esf:L1838-L1844",
+      "line_start": 1838,
+      "line_end": 1844,
+      "risk_level": "LOW",
+      "notes": "Query simples; Leitura de RCAP",
+      "context": "Função BI14P030; Validação EZESQCOD EQ 100 - 'RCAP NAO ENCONTRADO PARA O BILHETE'"
+    },
+    {
+      "query_id": "QRY-SQL-A-015",
+      "query_type": "STATIC",
+      "operation_type": "READ",
+      "sql_statement": "SELECT DTMOVABE INTO ?DTMOVABE WHERE idsistem = 'RN'",
+      "affected_tables": ["V1SISTEMA"],
+      "columns": ["DTMOVABE", "idsistem"],
+      "evidence_pointer": "bi14a.esf:L2138-L2151",
+      "line_start": 2138,
+      "line_end": 2151,
+      "risk_level": "LOW",
+      "notes": "Query simples; Leitura de data do sistema (duplicata da QRY-SQL-A-001)",
+      "context": "Após validação EZESQCOD EQ 0"
+    },
+    {
+      "query_id": "QRY-SQL-A-016",
+      "query_type": "STATIC",
+      "operation_type": "READ",
+      "sql_statement": "SELECT NUM_SICOB, NUM_PROPOSTA_SIVPF INTO ?NUM_SICOB, ?NUM_PROPOSTA_SIVPF WHERE NUM_PROPOSTA_SIVPF = ?NUM_PROPOSTA_SIVPF",
+      "affected_tables": ["V0PROPOSTA_SIVPF"],
+      "columns": ["NUM_SICOB", "NUM_PROPOSTA_SIVPF"],
+      "evidence_pointer": "bi14a.esf:L2171-L2180",
+      "line_start": 2171,
+      "line_end": 2180,
+      "risk_level": "LOW",
+      "notes": "Query simples; Busca proposta SIVPF (duplicata da QRY-SQL-A-002)",
+      "context": "Com error handling"
+    },
+    {
+      "query_id": "QRY-SQL-A-017",
+      "query_type": "STATIC",
+      "operation_type": "READ",
+      "sql_statement": "SELECT * FROM V0MOVDEBCC_CEF WHERE NUMBIL = ?NUMBIL AND COD_CONVENIO = 6114 AND SIT_COBRANCA = '2'",
+      "affected_tables": ["V0MOVDEBCC_CEF"],
+      "columns": ["NUMBIL", "COD_CONVENIO", "SIT_COBRANCA"],
+      "evidence_pointer": "bi14a.esf:L1471-L1478",
+      "line_start": 1471,
+      "line_end": 1478,
+      "risk_level": "LOW",
+      "notes": "Query simples; Verificação de renovação (duplicata da QRY-SQL-A-012)",
+      "context": "Função BI14P025"
+    },
+    {
+      "query_id": "QRY-SQL-A-018",
+      "query_type": "STATIC",
+      "operation_type": "READ",
+      "sql_statement": "SELECT * FROM V0MOVDEBCC_CEF WHERE NUMBIL = ?NUMBIL AND COD_CONVENIO = 6114 AND SIT_COBRANCA = '8'",
+      "affected_tables": ["V0MOVDEBCC_CEF"],
+      "columns": ["NUMBIL", "COD_CONVENIO", "SIT_COBRANCA"],
+      "evidence_pointer": "bi14a.esf:L1489-L1497",
+      "line_start": 1489,
+      "line_end": 1497,
+      "risk_level": "LOW",
+      "notes": "Query simples; Verificação de crédito efetivado (duplicata da QRY-SQL-A-013)",
+      "context": "Validação EZESQCOD EQ 0"
+    }
+  ],
+  "tables": [
+    {
+      "table_name": "V1SISTEMA",
+      "schema": "SEGUROS",
+      "declaration_type": "IMPLICIT",
+      "evidence_pointer": "bi14a.esf:L0977-L0990",
+      "columns": ["DTMOVABE", "idsistem"],
+      "operations": ["READ"],
+      "usage_count": 2,
+      "notes": "Tabela de sistema; Contém data de movimento"
+    },
+    {
+      "table_name": "V0PROPOSTA_SIVPF",
+      "schema": "SEGUROS",
+      "declaration_type": "IMPLICIT",
+      "evidence_pointer": "bi14a.esf:L1010-L1022",
+      "columns": ["NUM_SICOB", "NUM_PROPOSTA_SIVPF", "CANAL_PROPOSTA", "ORIGEM_PROPOSTA"],
+      "operations": ["READ"],
+      "usage_count": 4,
+      "notes": "Tabela de propostas SIVPF"
+    },
+    {
+      "table_name": "V0BILHETE",
+      "schema": "SEGUROS",
+      "declaration_type": "EXPLICIT",
+      "evidence_pointer": "bi14a.esf:L1160-L1175",
+      "columns": ["NUMBIL", "NUM_APOLICE", "FONTE", "RAMO", "SITUACAO", "COD_AGENCIA_DEB", "OPERACAO_CONTA_DEB", "NUM_CONTA_DEB", "DIG_CONTA_DEB"],
+      "operations": ["READ", "UPDATE"],
+      "usage_count": 4,
+      "notes": "Tabela principal de bilhetes; Contém dados bancários"
+    },
+    {
+      "table_name": "V0APOLICE",
+      "schema": "SEGUROS",
+      "declaration_type": "IMPLICIT",
+      "evidence_pointer": "bi14a.esf:L1231-L1240",
+      "columns": ["NUM_APOLICE", "SITUACAO"],
+      "operations": ["READ"],
+      "usage_count": 2,
+      "notes": "Tabela de apólices"
+    },
+    {
+      "table_name": "V0RELATORIOS",
+      "schema": "SEGUROS",
+      "declaration_type": "IMPLICIT",
+      "evidence_pointer": "bi14a.esf:L1299-L1310",
+      "columns": ["CODUSU", "DATA_SOLICITACAO", "IDSISTEM", "CODRELAT", "NRCOPIAS", "QUANTIDADE", "PERI_INICIAL", "PERI_FINAL", "DATA_REFERENCIA", "MES_REFERENCIA", "ANO_REFERENCIA", "ORGAO", "FONTE", "CODPDT", "RAMO", "MODALIDA", "CONGENER", "NUM_APOLICE", "NRENDOS", "NUMBIL", "CORRECAO", "SITUACAO"],
+      "operations": ["READ", "CREATE"],
+      "usage_count": 2,
+      "notes": "Tabela de relatórios; INSERT com 22 colunas"
+    },
+    {
+      "table_name": "V0MOVDEBCC_CEF",
+      "schema": "SEGUROS",
+      "declaration_type": "IMPLICIT",
+      "evidence_pointer": "bi14a.esf:L1471-L1478",
+      "columns": ["NUMBIL", "COD_CONVENIO", "SIT_COBRANCA"],
+      "operations": ["READ"],
+      "usage_count": 4,
+      "notes": "Tabela de movimentação de débito em conta CEF; Verifica renovação e crédito"
+    },
+    {
+      "table_name": "V0RCAP",
+      "schema": "SEGUROS",
+      "declaration_type": "IMPLICIT",
+      "evidence_pointer": "bi14a.esf:L1838-L1844",
+      "columns": ["NRTIT"],
+      "operations": ["READ"],
+      "usage_count": 1,
+      "notes": "Tabela RCAP (Recibo de Capitalização)"
+    }
+  ],
+  "cursors": [],
+  "sqlca_patterns": [
+    {
+      "pattern_type": "EZESQCOD_CHECK",
+      "description": "Verificação de código de retorno SQL",
+      "occurrences": 12,
+      "examples": [
+        {
+          "line": 970,
+          "code": "IF EZESQCOD EQ 0",
+          "context": "Validação de sucesso"
+        },
+        {
+          "line": 1436,
+          "code": "IF EZESQCOD EQ 100",
+          "context": "Validação de registro não encontrado"
+        },
+        {
+          "line": 1589,
+          "code": "IF EZESQCOD NE 0",
+          "context": "Validação de erro"
+        }
+      ],
+      "evidence_pointer": "bi14a.esf:L0970-L2900"
+    },
+    {
+      "pattern_type": "EZESQLCA_ASSIGNMENT",
+      "description": "Atribuição de SQLCA para error handling",
+      "occurrences": 3,
+      "examples": [
+        {
+          "line": 2846,
+          "code": "MOVE EZESQLCA TO ZZ99W01.SQLCA",
+          "context": "TESTE RETURN CODE - GRAVACAO"
+        },
+        {
+          "line": 2871,
+          "code": "MOVE EZESQLCA TO ZZ99W01.SQLCA",
+          "context": "Error handling após EZESQCOD check"
+        },
+        {
+          "line": 2895,
+          "code": "MOVE EZESQLCA TO ZZ99W01.SQLCA",
+          "context": "TESTE RETURN CODE - LEITURA"
+        }
+      ],
+      "evidence_pointer": "bi14a.esf:L2846-L2895"
+    }
+  ],
+  "error_handling": {
+    "error_handlers": [
+      {
+        "handler_name": "ZZRCIN2",
+        "usage": "UPDATE operations",
+        "evidence_pointer": "bi14a.esf:L1143"
+      }
+    ],
+    "error_messages": [
+      "PROBLEMAS NO ACESSO AO BANCO DE DADOS",
+      "BILHETE NAO ENCONTRADO",
+      "BILHETE NAO E RENOVACAO",
+      "BILHETE CANCELADO COM CREDITO EFETIVADO",
+      "RCAP NAO ENCONTRADO PARA O BILHETE",
+      "PROBLEMAS NA INCLUSAO"
+    ],
+    "sqlcode_checks": {
+      "SQLCODE_0": "Sucesso",
+      "SQLCODE_100": "Registro não encontrado",
+      "SQLCODE_NE_0": "Erro genérico"
+    }
+  },
+  "statistics": {
+    "total_queries": 18,
+    "unique_queries": 14,
+    "duplicates": 4,
+    "by_operation": {
+      "READ": 15,
+      "CREATE": 1,
+      "UPDATE": 1,
+      "DELETE": 0
+    },
+    "by_risk": {
+      "HIGH": 0,
+      "MEDIUM": 2,
+      "LOW": 16
+    },
+    "by_table": {
+      "V0BILHETE": 4,
+      "V0PROPOSTA_SIVPF": 4,
+      "V0MOVDEBCC_CEF": 4,
+      "V1SISTEMA": 2,
+      "V0APOLICE": 2,
+      "V0RELATORIOS": 2,
+      "V0RCAP": 1
+    }
+  },
+  "quality_metrics": {
+    "evidence_pointers_valid": 18,
+    "evidence_pointers_total": 18,
+    "grounding_score": 100.0,
+    "completeness": "HIGH",
+    "confidence": "HIGH"
+  }
+}
+

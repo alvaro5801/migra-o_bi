@@ -1,0 +1,20 @@
+cobol_type,cobol_pattern,sql_type,sql_length,notes,example_cobol,example_sql
+PIC_X,PIC X\((\d+)\),NVARCHAR,{1},Texto de tamanho variável,PIC X(100),NVARCHAR(100)
+PIC_X_FIXED,PIC X\((\d+)\),CHAR,{1},Texto de tamanho fixo (se < 10),PIC X(5),CHAR(5)
+PIC_9_INT,PIC 9\((\d+)\),INT,NULL,Inteiro sem decimais (se <= 9 dígitos),PIC 9(8),INT
+PIC_9_BIGINT,PIC 9\((\d+)\),BIGINT,NULL,Inteiro grande (se > 9 dígitos),PIC 9(15),BIGINT
+PIC_9V9,PIC 9\((\d+)\)V9\((\d+)\),DECIMAL,"{1},{2}",Decimal com precisão,PIC 9(10)V9(2),DECIMAL(10,2)
+PIC_S9,PIC S9\((\d+)\),INT,NULL,Inteiro com sinal,PIC S9(8),INT
+PIC_S9V9,PIC S9\((\d+)\)V9\((\d+)\),DECIMAL,"{1},{2}",Decimal com sinal,PIC S9(10)V9(2),DECIMAL(10,2)
+COMP,COMP,INT,NULL,Computacional binário,PIC 9(8) COMP,INT
+COMP-3,COMP-3,DECIMAL,NULL,Packed decimal,PIC 9(10)V9(2) COMP-3,DECIMAL(10,2)
+DATE,PIC X(8),DATE,NULL,Data formato YYYYMMDD,PIC X(8) VALUE '20250101',DATE
+TIMESTAMP,PIC X(26),DATETIME,NULL,Timestamp completo,PIC X(26),DATETIME
+BOOLEAN,PIC X(1),BIT,NULL,Booleano (S/N),PIC X(1) VALUE 'S',BIT
+MONEY,PIC 9\((\d+)\)V99,MONEY,NULL,Valor monetário,PIC 9(15)V99,MONEY
+SMALLINT,PIC 9\((\d+)\),SMALLINT,NULL,Inteiro pequeno (se <= 4 dígitos),PIC 9(4),SMALLINT
+VARCHAR_MAX,PIC X\((\d+)\),NVARCHAR(MAX),NULL,Texto grande (se > 4000),PIC X(8000),NVARCHAR(MAX)
+BINARY,PIC X\((\d+)\) USAGE BINARY,VARBINARY,{1},Dados binários,PIC X(100) USAGE BINARY,VARBINARY(100)
+
+
+
